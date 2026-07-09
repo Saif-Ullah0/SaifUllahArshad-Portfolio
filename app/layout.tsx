@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
+import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -42,12 +43,6 @@ export const metadata: Metadata = {
       "CS Student at ITU Lahore. Building intelligent systems at the intersection of ML and software engineering.",
     siteName: "Saif Ullah Arshad Portfolio",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Saif Ullah Arshad | ML Engineer & Full Stack Developer",
-    description:
-      "CS Student at ITU Lahore. Building intelligent systems at the intersection of ML and software engineering.",
-  },
 };
 
 export default function RootLayout({
@@ -60,7 +55,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${firaCode.variable}`}
       >
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );
