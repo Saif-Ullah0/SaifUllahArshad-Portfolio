@@ -4,7 +4,6 @@ import "./globals.css";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
 
-
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
@@ -57,10 +56,6 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${firaCode.variable}`}
       >
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
-      </body>
-
-      <body className={`${spaceGrotesk.variable} ${inter.variable} ${firaCode.variable}`}>
         <CustomCursor />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
