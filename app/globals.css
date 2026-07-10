@@ -81,3 +81,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-violet-light);
 }
+
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
