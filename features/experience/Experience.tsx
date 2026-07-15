@@ -42,8 +42,43 @@ export default function Experience() {
           Where I Have Worked
         </h2>
 
+        <style>{`
+          .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+          }
+          .experience-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+          }
+          .experience-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+          }
+          @media (max-width: 768px) {
+            .experience-timeline {
+              padding-left: 1rem;
+            }
+            .experience-card {
+              padding: 1.25rem;
+            }
+            .experience-top-row {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 0.75rem;
+            }
+          }
+        `}</style>
+
         {/* Timeline */}
-        <div style={{ position: "relative", paddingLeft: "2rem" }}>
+        <div className="experience-timeline">
 
           {/* Vertical line */}
           <div
@@ -87,13 +122,7 @@ export default function Experience() {
 
               {/* Card */}
               <div
-                style={{
-                  backgroundColor: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
-                  borderRadius: "12px",
-                  padding: "1.75rem",
-                  transition: "border-color 0.2s ease, transform 0.2s ease",
-                }}
+                className="experience-card"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--color-violet)";
                   e.currentTarget.style.transform = "translateX(4px)";
@@ -104,16 +133,7 @@ export default function Experience() {
                 }}
               >
                 {/* Top row */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    flexWrap: "wrap",
-                    gap: "0.5rem",
-                    marginBottom: "0.5rem",
-                  }}
-                >
+                <div className="experience-top-row">
                   <div>
                     <h3
                       style={{

@@ -191,7 +191,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               e.currentTarget.style.color = "var(--color-text-secondary)";
             }}
           >
-            ↗ Live Demo
+            ↗ {project.demo?.includes("linkedin") ? "View Post" : "Live Demo"}
           </a>
         )}
       </div>
