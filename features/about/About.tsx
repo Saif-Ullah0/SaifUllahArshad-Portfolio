@@ -76,14 +76,22 @@ export default function About() {
         </h2>
 
         {/* Two column layout */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-          }}
-        >
+        <style>{`
+          .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+          }
+          @media (max-width: 768px) {
+            .about-grid {
+              grid-template-columns: 1fr;
+              gap: 2rem;
+            }
+          }
+        `}</style>
+
+        <div className="about-grid">
           {/* Left — photo */}
           <div
             style={{

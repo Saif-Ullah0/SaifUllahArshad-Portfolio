@@ -60,14 +60,22 @@ export default function Contact() {
         </p>
 
         {/* Two column layout */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
-        >
+        <style>{`
+          .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+          }
+          @media (max-width: 768px) {
+            .contact-grid {
+              grid-template-columns: 1fr;
+              gap: 2rem;
+            }
+          }
+        `}</style>
+
+        <div className="contact-grid">
           {/* Left — info */}
           <div>
             <div
