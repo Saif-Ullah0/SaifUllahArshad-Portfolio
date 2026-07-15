@@ -14,7 +14,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { menuOpen, setMenuOpen, activeSection } = useAppStore();
+  const { menuOpen, setMenuOpen, activeSection, setActiveSection } = useAppStore();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -30,6 +30,28 @@ export default function Navbar() {
       window.removeEventListener("resize", handleResize);
     };
   }, [setMenuOpen]);
+
+  useEffect(() => {
+    const sections = ["about", "experience", "projects", "skills", "contact"];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [setActiveSection]);
 
   const headerStyle: React.CSSProperties = {
     position: "fixed",
