@@ -19,10 +19,10 @@ function Particles() {
     return arr;
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.y = state.clock.elapsedTime * 0.03;
-    meshRef.current.rotation.x = state.clock.elapsedTime * 0.01;
+    meshRef.current.rotation.y += delta * 0.03;
+    meshRef.current.rotation.x += delta * 0.01;
   });
 
   return (
