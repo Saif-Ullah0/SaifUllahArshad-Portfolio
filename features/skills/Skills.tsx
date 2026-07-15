@@ -1,6 +1,8 @@
 "use client";
 
 import { skills } from "@/data/skills";
+import dynamic from "next/dynamic";
+const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), { ssr: false });
 
 const categories = [
   { key: "ml", label: "ML / AI" },
@@ -61,12 +63,16 @@ export default function Skills() {
           development, and everything in between.
         </p>
 
-        {/* Categories */}
+        {/* 3D Skill Balls */}
+        <SkillsCanvas />
+
+        {/* Categories — keep the flat badges below as reference */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             gap: "3rem",
+            marginTop: "2rem",
           }}
         >
           {categories.map((cat) => {
