@@ -3,13 +3,68 @@
 import { profile } from "@/data/profile";
 import Image from "next/image";
 import GitHubStats from "./GitHubStats";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const stats = [
-  { label: "CGPA", value: "3.2" },
-  { label: "Year", value: "3rd" },
-  { label: "Graduating", value: "2027" },
-  { label: "Internships", value: "2" },
+  { label: "CGPA", value: 3.2, decimals: 1, suffix: "" },
+  { label: "Year", value: 3, decimals: 0, suffix: "rd" },
+  { label: "Graduating", value: 2027, decimals: 0, suffix: "" },
+  { label: "Internships", value: 2, decimals: 0, suffix: "+" },
 ];
+
+function StatCard({ label, value, decimals, suffix }: {
+  label: string;
+  value: number;
+  decimals: number;
+  suffix: string;
+}) {
+  const { count, ref } = useCountUp(value, 1500, decimals);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        backgroundColor: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "10px",
+        padding: "1rem",
+        textAlign: "center",
+        transition: "border-color 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "var(--color-violet)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--color-border)";
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontSize: "1.8rem",
+          fontWeight: 700,
+          color: "var(--color-violet)",
+          lineHeight: 1,
+          marginBottom: "0.3rem",
+        }}
+      >
+        {decimals > 0 ? count.toFixed(decimals) : Math.round(count)}
+        {suffix}
+      </p>
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "0.75rem",
+          color: "var(--color-text-muted)",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+        }}
+      >
+        {label}
+      </p>
+    </div>
+  );
+}
 
 export default function About() {
   return (
@@ -199,47 +254,13 @@ export default function About() {
               }}
             >
               {stats.map((stat) => (
-                <div
+                <StatCard
                   key={stat.label}
-                  style={{
-                    backgroundColor: "var(--color-surface)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "10px",
-                    padding: "1rem",
-                    textAlign: "center",
-                    transition: "border-color 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--color-violet)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--color-border)";
-                  }}
-                >
-                  <p
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "1.8rem",
-                      fontWeight: 700,
-                      color: "var(--color-violet)",
-                      lineHeight: 1,
-                      marginBottom: "0.3rem",
-                    }}
-                  >
-                    {stat.value}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "0.75rem",
-                      color: "var(--color-text-muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {stat.label}
-                  </p>
-                </div>
+                  label={stat.label}
+                  value={stat.value}
+                  decimals={stat.decimals}
+                  suffix={stat.suffix}
+                />
               ))}
             </div>
           </div>
