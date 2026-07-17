@@ -1,8 +1,52 @@
 "use client";
 
 import { profile } from "@/data/profile";
+import { useEffect, useState } from "react";
+
+const roles = [
+  "ML Engineer",
+  "Full Stack Developer",
+  "AI Agent Builder",
+  "CS Student @ ITU",
+  "Python Developer",
+];
 
 export default function HeroText() {
+  const [currentRole, setCurrentRole] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    const role = roles[currentRole];
+
+    if (!deleting && charIndex < role.length) {
+      const timeout = setTimeout(() => {
+        setDisplayed(role.slice(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+      }, 80);
+      return () => clearTimeout(timeout);
+    }
+
+    if (!deleting && charIndex === role.length) {
+      const timeout = setTimeout(() => setDeleting(true), 1800);
+      return () => clearTimeout(timeout);
+    }
+
+    if (deleting && charIndex > 0) {
+      const timeout = setTimeout(() => {
+        setDisplayed(role.slice(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+      }, 40);
+      return () => clearTimeout(timeout);
+    }
+
+    if (deleting && charIndex === 0) {
+      setDeleting(false);
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }
+  }, [charIndex, deleting, currentRole]);
+
   return (
     <div
       style={{
@@ -40,19 +84,40 @@ export default function HeroText() {
         {profile.name}
       </h1>
 
-      {/* Tagline */}
+      {/* Typing animation */}
       <h2
         style={{
           fontFamily: "var(--font-heading)",
           fontSize: "clamp(1.2rem, 3vw, 2rem)",
           fontWeight: 500,
-          color: "var(--color-violet-light)",
           letterSpacing: "-0.01em",
           marginBottom: "1.5rem",
+          minHeight: "2.5rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.5rem",
         }}
       >
-        {profile.tagline}
+        <span style={{ color: "var(--color-violet-light)" }}>{displayed}</span>
+        <span
+          style={{
+            display: "inline-block",
+            width: "3px",
+            height: "1.2em",
+            backgroundColor: "var(--color-cyan)",
+            borderRadius: "2px",
+            animation: "cursorBlink 1s ease-in-out infinite",
+          }}
+        />
       </h2>
+
+      <style>{`
+        @keyframes cursorBlink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+      `}</style>
 
       {/* Bio */}
       <p
