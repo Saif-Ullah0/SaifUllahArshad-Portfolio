@@ -209,38 +209,39 @@ export default function HeroText() {
         }}
       >
         {[
-          { label: "GitHub", url: "https://github.com/Saif-Ullah0" },
-          { label: "LinkedIn", url: "https://linkedin.com/in/saif-ullah-arshad-40797a265" },
-          { label: "Email", url: "mailto:saifullaharshad110@gmail.com" },
+          { label: "GitHub", url: "https://github.com/Saif-Ullah0", color: "var(--color-violet)" },
+          { label: "LinkedIn", url: "https://linkedin.com/in/saif-ullah-arshad-40797a265", color: "var(--color-cyan)" },
+          { label: "Email", url: "mailto:saifullaharshad110@gmail.com", color: "var(--color-violet-light)" },
         ].map((social) => (
           <a
-            key={social.label}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.78rem",
-              color: "var(--color-text-muted)",
-              textDecoration: "none",
-              padding: "0.4rem 0.9rem",
-              borderRadius: "20px",
-              border: "1px solid var(--color-border)",
-              transition: "all 0.2s ease",
-              letterSpacing: "0.05em",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-violet)";
-              e.currentTarget.style.color = "var(--color-violet-light)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-border)";
-              e.currentTarget.style.color = "var(--color-text-muted)";
-            }}
-          >
-            {social.label}
-          </a>
-        ))}
+          key={social.label}
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.78rem",
+            color: social.color,
+            textDecoration: "none",
+            padding: "0.4rem 0.9rem",
+            borderRadius: "20px",
+            border: `1px solid ${social.color}`,
+            transition: "all 0.2s ease",
+            letterSpacing: "0.05em",
+            backgroundColor: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = social.color;
+            e.currentTarget.style.color = "white";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = social.color;
+          }}
+        >
+          {social.label}
+        </a>
+      ))}
       </div>
 
       {/* Scroll indicator */}

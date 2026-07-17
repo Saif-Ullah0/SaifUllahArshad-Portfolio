@@ -6,7 +6,7 @@ import GitHubStats from "./GitHubStats";
 import { useCountUp } from "@/hooks/useCountUp";
 
 const stats = [
-  { label: "CGPA", value: 3.2, decimals: 1, suffix: "" },
+  { label: "Projects", value: 7, decimals: 0, suffix: "+" },
   { label: "Year", value: 3, decimals: 0, suffix: "rd" },
   { label: "Graduating", value: 2027, decimals: 0, suffix: "" },
   { label: "Internships", value: 2, decimals: 0, suffix: "+" },
