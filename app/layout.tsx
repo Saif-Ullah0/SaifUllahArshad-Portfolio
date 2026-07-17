@@ -4,6 +4,8 @@ import "./globals.css";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
 import LoadingScreen from "@/components/LoadingScreen";
+import BackToTop from "@/components/BackToTop";
+
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -60,6 +62,7 @@ export default function RootLayout({
         <CustomCursor />
         <LoadingScreen />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <BackToTop />
       </body>
     </html>
   );

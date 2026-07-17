@@ -199,6 +199,50 @@ export default function HeroText() {
         </a>
       </div>
 
+      {/* Social links */}
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          justifyContent: "center",
+          marginTop: "2rem",
+        }}
+      >
+        {[
+          { label: "GitHub", url: "https://github.com/Saif-Ullah0" },
+          { label: "LinkedIn", url: "https://linkedin.com/in/saif-ullah-arshad-40797a265" },
+          { label: "Email", url: "mailto:saifullaharshad110@gmail.com" },
+        ].map((social) => (
+          <a
+            key={social.label}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.78rem",
+              color: "var(--color-text-muted)",
+              textDecoration: "none",
+              padding: "0.4rem 0.9rem",
+              borderRadius: "20px",
+              border: "1px solid var(--color-border)",
+              transition: "all 0.2s ease",
+              letterSpacing: "0.05em",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-violet)";
+              e.currentTarget.style.color = "var(--color-violet-light)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-border)";
+              e.currentTarget.style.color = "var(--color-text-muted)";
+            }}
+          >
+            {social.label}
+          </a>
+        ))}
+      </div>
+
       {/* Scroll indicator */}
       <div
         style={{

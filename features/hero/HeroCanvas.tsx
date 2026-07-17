@@ -7,7 +7,7 @@ import * as THREE from "three";
 function Particles() {
   const meshRef = useRef<THREE.Points>(null);
 
-  const count = 2000;
+  const count = typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 2000;
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
