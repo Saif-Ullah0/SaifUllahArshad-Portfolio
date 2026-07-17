@@ -2,6 +2,7 @@
 
 import { profile } from "@/data/profile";
 import Image from "next/image";
+import GitHubStats from "./GitHubStats";
 
 const stats = [
   { label: "CGPA", value: "3.2" },
@@ -358,6 +359,8 @@ export default function About() {
                 BS Computer Science, graduating {profile.graduationYear}
               </p>
             </div>
+
+            <GitHubStats />
           </div>
         </div>
       </div>
