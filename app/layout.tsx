@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${inter.variable} ${firaCode.variable}`}
       >
         <CustomCursor />
+        <LoadingScreen />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
