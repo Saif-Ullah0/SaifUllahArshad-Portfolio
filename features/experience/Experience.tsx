@@ -1,6 +1,13 @@
 "use client";
 
 import { experiences } from "@/data/experience";
+import {
+  FaBriefcase,
+  FaMapMarkerAlt,
+  FaCalendar,
+  FaCode,
+} from "react-icons/fa";
+import { SiPython, SiReact, SiNodedotjs, SiPostgresql, SiFastapi, SiMongodb } from "react-icons/si";
 
 export default function Experience() {
   return (
@@ -152,8 +159,12 @@ export default function Experience() {
                         fontSize: "0.95rem",
                         color: "var(--color-violet-light)",
                         fontWeight: 500,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
                       }}
                     >
+                      <FaBriefcase size={12} />
                       {exp.company}
                     </p>
                   </div>
@@ -165,8 +176,12 @@ export default function Experience() {
                         fontSize: "0.8rem",
                         color: "var(--color-text-muted)",
                         marginBottom: "0.25rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
                       }}
                     >
+                      <FaCalendar size={10} />
                       {exp.startDate} — {exp.current ? "Present" : exp.endDate}
                     </p>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", justifyContent: "flex-end" }}>
@@ -189,8 +204,12 @@ export default function Experience() {
                           color: exp.current
                             ? "var(--color-success)"
                             : "var(--color-text-muted)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.4rem",
                         }}
                       >
+                        <FaMapMarkerAlt size={10} />
                         {exp.current ? "Current" : exp.location}
                       </p>
                     </div>
