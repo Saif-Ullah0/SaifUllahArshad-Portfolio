@@ -3,8 +3,20 @@
 import { socials } from "@/data/socials";
 import { profile } from "@/data/profile";
 import ContactForm from "./ContactForm";
+import {
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaCircle,
+  FaGithub,
+  FaLinkedin,
+} from "react-icons/fa";
 
 export default function Contact() {
+  const socialIcons: Record<string, React.ReactNode> = {
+    GitHub: <FaGithub size={16} />,
+    LinkedIn: <FaLinkedin size={16} />,
+    Email: <FaEnvelope size={16} />,
+  };
   return (
     <section
       id="contact"
@@ -95,8 +107,12 @@ export default function Contact() {
                     color: "var(--color-text-muted)",
                     letterSpacing: "0.05em",
                     marginBottom: "0.35rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
                   }}
                 >
+                  <FaEnvelope size={11} />
                   email
                 </p>
                 <a
@@ -128,8 +144,12 @@ export default function Contact() {
                     color: "var(--color-text-muted)",
                     letterSpacing: "0.05em",
                     marginBottom: "0.35rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
                   }}
                 >
+                  <FaMapMarkerAlt size={11} />
                   location
                 </p>
                 <p
@@ -209,6 +229,9 @@ export default function Contact() {
                     color: "var(--color-text-secondary)",
                     textDecoration: "none",
                     transition: "all 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = "var(--color-violet)";
@@ -221,6 +244,7 @@ export default function Contact() {
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
+                  {socialIcons[social.name]}
                   {social.name}
                 </a>
               ))}
