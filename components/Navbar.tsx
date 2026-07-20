@@ -3,12 +3,22 @@
 import { useEffect, useState } from "react";
 import { useAppStore } from "@/store/useAppStore";
 
+import {
+  FaUser,
+  FaBriefcase,
+  FaCode,
+  FaBrain,
+  FaCertificate,
+  FaEnvelope,
+} from "react-icons/fa";
+
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", icon: FaUser },
+  { label: "Experience", href: "#experience", icon: FaBriefcase },
+  { label: "Projects", href: "#projects", icon: FaCode },
+  { label: "Skills", href: "#skills", icon: FaBrain },
+  { label: "Certs", href: "#certificates", icon: FaCertificate },
+  { label: "Contact", href: "#contact", icon: FaEnvelope },
 ];
 
 export default function Navbar() {
@@ -149,6 +159,7 @@ export default function Navbar() {
           <ul style={desktopLinksStyle}>
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
+              const Icon = link.icon;
               const linkStyle: React.CSSProperties = {
                 fontFamily: "var(--font-body)",
                 fontSize: "0.9rem",
@@ -158,6 +169,9 @@ export default function Navbar() {
                   ? "var(--color-violet-light)"
                   : "var(--color-text-secondary)",
                 transition: "color 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.4rem",
               };
               return (
                 <li key={link.href}>
@@ -174,6 +188,7 @@ export default function Navbar() {
                         : "var(--color-text-secondary)";
                     }}
                   >
+                    <Icon size={13} />
                     {link.label}
                   </a>
                 </li>
