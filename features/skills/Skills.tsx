@@ -2,7 +2,30 @@
 
 import { skills } from "@/data/skills";
 import dynamic from "next/dynamic";
-const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), { ssr: false });
+const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        width: "100%",
+        height: "560px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.8rem",
+          color: "var(--color-text-muted)",
+        }}
+      >
+        Loading 3D scene...
+      </p>
+    </div>
+  ),
+});
 
 const categories = [
   { key: "ml", label: "ML / AI" },
