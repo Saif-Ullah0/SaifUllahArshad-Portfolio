@@ -2,10 +2,17 @@
 
 import dynamic from "next/dynamic";
 import HeroText from "./HeroText";
+import { useEffect, useState } from "react";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -19,10 +26,8 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* 3D particle background */}
-      <HeroCanvas />
+      {!isMobile && <HeroCanvas />}
 
-      {/* Background glow */}
       <div
         style={{
           position: "absolute",
