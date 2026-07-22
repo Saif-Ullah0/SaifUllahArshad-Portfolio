@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { skills } from "@/data/skills";
 import dynamic from "next/dynamic";
 const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), {
@@ -34,6 +35,19 @@ const categories = [
 ];
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <section
       id="skills"
@@ -87,7 +101,7 @@ export default function Skills() {
         </p>
 
         {/* 3D Skill Balls */}
-        <SkillsCanvas />
+        {!isMobile && <SkillsCanvas />}
 
         {/* Categories — keep the flat badges below as reference */}
         <div
