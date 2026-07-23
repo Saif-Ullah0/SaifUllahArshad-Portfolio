@@ -5,6 +5,8 @@ import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
 import LoadingScreen from "@/components/LoadingScreen";
 import BackToTop from "@/components/BackToTop";
+import { Analytics } from "@vercel/analytics/react";
+import ScrollProgress from "@/components/ScrollProgress";
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -61,8 +63,10 @@ export default function RootLayout({
       >
         <CustomCursor />
         <LoadingScreen />
+        <ScrollProgress />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <BackToTop />
+        <Analytics />
       </body>
     </html>
   );
