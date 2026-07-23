@@ -4,6 +4,8 @@ import { profile } from "@/data/profile";
 import Image from "next/image";
 import GitHubStats from "./GitHubStats";
 import { useCountUp } from "@/hooks/useCountUp";
+import ScrambleText from "@/components/ScrambleText";
+
 
 const stats = [
   { label: "Projects", value: 7, decimals: 0, suffix: "+" },
@@ -128,7 +130,7 @@ export default function About() {
             marginBottom: "3rem",
           }}
         >
-          Who I Am
+        <ScrambleText text="Who I Am" />
         </h2>
 
         {/* Two column layout */}

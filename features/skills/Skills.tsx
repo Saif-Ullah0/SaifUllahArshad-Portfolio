@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { skills } from "@/data/skills";
 import dynamic from "next/dynamic";
+import ScrambleText from "@/components/ScrambleText";
+
 const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), {
   ssr: false,
   loading: () => (
@@ -84,7 +86,7 @@ export default function Skills() {
             marginBottom: "1rem",
           }}
         >
-          What I Work With
+        <ScrambleText text="What I Work With" />        
         </h2>
 
         <p

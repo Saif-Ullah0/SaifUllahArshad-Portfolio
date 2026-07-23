@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { projects } from "@/data/projects";
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Project } from "@/types";
+import ScrambleText from "@/components/ScrambleText";
 
 function ProjectCard({ project }: { project: Project }) {
   return (
@@ -284,7 +285,7 @@ export default function Projects() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
             <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.02em", marginBottom: "0.5rem" }}>
-              Things I Have Built
+              <ScrambleText text="Things I Have Built" />
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--color-text-secondary)" }}>
               {realIndex + 1} of {total} projects

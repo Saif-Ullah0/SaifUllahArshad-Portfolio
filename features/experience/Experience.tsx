@@ -1,5 +1,6 @@
 "use client";
 
+import ScrambleText from "@/components/ScrambleText";
 import { experiences } from "@/data/experience";
 import {
   FaBriefcase,
@@ -46,8 +47,7 @@ export default function Experience() {
             marginBottom: "4rem",
           }}
         >
-          Where I Have Worked
-        </h2>
+        <ScrambleText text="Where I Have Worked" />        </h2>
 
         <style>{`
           .experience-timeline {

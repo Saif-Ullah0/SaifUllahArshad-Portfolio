@@ -10,6 +10,7 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa";
+import ScrambleText from "@/components/ScrambleText";
 
 export default function Contact() {
   const socialIcons: Record<string, React.ReactNode> = {
@@ -53,8 +54,7 @@ export default function Contact() {
             marginBottom: "1rem",
           }}
         >
-          Get In Touch
-        </h2>
+        <ScrambleText text="Get In Touch" />        </h2>
 
         <p
           style={{
