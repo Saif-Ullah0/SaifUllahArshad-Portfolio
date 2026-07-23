@@ -1,5 +1,6 @@
 "use client";
 
+import MagneticButton from "@/components/MagneticButton";
 import { profile } from "@/data/profile";
 import { useEffect, useState } from "react";
 
@@ -142,61 +143,65 @@ export default function HeroText() {
           flexWrap: "wrap",
         }}
       >
-        <a
-          href="#projects"
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "0.95rem",
-            fontWeight: 600,
-            padding: "0.75rem 2rem",
-            borderRadius: "8px",
-            backgroundColor: "var(--color-violet)",
-            color: "white",
-            textDecoration: "none",
-            transition: "all 0.2s ease",
-            border: "1px solid var(--color-violet)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--color-violet-light)";
-            e.currentTarget.style.transform = "translateY(-2px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--color-violet)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          View Projects
-        </a>
+        <MagneticButton>
+          <a
+            href="#projects"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "0.95rem",
+              fontWeight: 600,
+              padding: "0.75rem 2rem",
+              borderRadius: "8px",
+              backgroundColor: "var(--color-violet)",
+              color: "white",
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+              border: "1px solid var(--color-violet)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--color-violet-light)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--color-violet)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            View Projects
+          </a>
+        </MagneticButton>
 
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "0.95rem",
-            fontWeight: 600,
-            padding: "0.75rem 2rem",
-            borderRadius: "8px",
-            backgroundColor: "transparent",
-            color: "var(--color-text-primary)",
-            textDecoration: "none",
-            transition: "all 0.2s ease",
-            border: "1px solid var(--color-border)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "var(--color-violet)";
-            e.currentTarget.style.color = "var(--color-violet)";
-            e.currentTarget.style.transform = "translateY(-2px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "var(--color-border)";
-            e.currentTarget.style.color = "var(--color-text-primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          Download Resume
-        </a>
+        <MagneticButton>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "0.95rem",
+              fontWeight: 600,
+              padding: "0.75rem 2rem",
+              borderRadius: "8px",
+              backgroundColor: "transparent",
+              color: "var(--color-text-primary)",
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+              border: "1px solid var(--color-border)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-violet)";
+              e.currentTarget.style.color = "var(--color-violet)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--color-border)";
+              e.currentTarget.style.color = "var(--color-text-primary)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            Download Resume
+          </a>
+        </MagneticButton>
       </div>
 
       {/* Social links */}
