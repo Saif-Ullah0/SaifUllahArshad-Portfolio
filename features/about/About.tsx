@@ -5,6 +5,7 @@ import Image from "next/image";
 import GitHubStats from "./GitHubStats";
 import { useCountUp } from "@/hooks/useCountUp";
 import ScrambleText from "@/components/ScrambleText";
+import PhotoHover from "./PhotoHover";
 
 
 const stats = [
@@ -139,7 +140,7 @@ export default function About() {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            align-items: center;
+            align-items: start;
           }
           @media (max-width: 768px) {
             .about-grid {
@@ -157,93 +158,11 @@ export default function About() {
               flexDirection: "column",
               alignItems: "center",
               gap: "2rem",
+              marginTop: "-1rem",
             }}
           >
             {/* Photo with animated ring */}
-            <div
-              className="photo-wrapper"
-              style={{
-                position: "relative",
-                width: "280px",
-                height: "280px",
-                animation: "floatUpDown 4s ease-in-out infinite",
-              }}
-            >
-              {/* Glow underneath */}
-              <div
-                className="glow"
-                style={{
-                  position: "absolute",
-                  bottom: "-20px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "200px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  background: "radial-gradient(ellipse, rgba(124, 58, 237, 0.3) 0%, transparent 70%)",
-                  opacity: 0.2,
-                  transition: "opacity 0.3s ease",
-                  filter: "blur(8px)",
-                }}
-              />
-
-              {/* Outer rotating ring */}
-              <div
-                className="ring-outer"
-                style={{
-                  position: "absolute",
-                  inset: "-6px",
-                  borderRadius: "50%",
-                  background: "conic-gradient(from 0deg, #7c3aed, #06b6d4, #7c3aed)",
-                  animation: "rotateSlow 4s linear infinite",
-                  opacity: 0.8,
-                  transition: "animation-duration 0.3s ease, opacity 0.3s ease",
-                }}
-              />
-
-              {/* Inner counter-rotating ring */}
-              <div
-                className="ring-inner"
-                style={{
-                  position: "absolute",
-                  inset: "-3px",
-                  borderRadius: "50%",
-                  background: "conic-gradient(from 180deg, transparent 60%, rgba(124, 58, 237, 0.4) 100%)",
-                  animation: "rotateFast 3s linear infinite reverse",
-                }}
-              />
-
-              {/* Dark ring to create border effect */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "4px",
-                  borderRadius: "50%",
-                  backgroundColor: "var(--color-background)",
-                  zIndex: 1,
-                }}
-              />
-
-              {/* Photo */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "12px",
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  zIndex: 2,
-                }}
-              >
-                <Image
-                  src="/images/profile.webp"
-                  alt="Saif Ullah Arshad"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 280px"
-                  style={{ objectFit: "cover", objectPosition: "15%" }}
-                  priority
-                />
-              </div>
-            </div>
+            <PhotoHover />
 
             {/* Stats grid below photo */}
             <div
