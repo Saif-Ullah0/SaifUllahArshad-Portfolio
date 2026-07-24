@@ -5,6 +5,7 @@ import HeroText from "./HeroText";
 import { useEffect, useState } from "react";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
+const HeroSpotlight = dynamic(() => import("./HeroSpotlight"), { ssr: false });
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
@@ -26,8 +27,13 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
+      {/* Spotlight reveal layer — sits above background, below particles */}
+      <HeroSpotlight />
+
+      {/* Particle field */}
       {!isMobile && <HeroCanvas />}
 
+      {/* Background glow */}
       <div
         style={{
           position: "absolute",
