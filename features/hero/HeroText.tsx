@@ -182,21 +182,24 @@ export default function HeroText() {
               fontWeight: 600,
               padding: "0.75rem 2rem",
               borderRadius: "8px",
-              backgroundColor: "transparent",
-              color: "var(--color-text-primary)",
+              backgroundColor: "var(--color-violet, #7c3aed)", // Solid filled background
+              color: "#ffffff", // Crisp white text for clear visibility
               textDecoration: "none",
               transition: "all 0.2s ease",
-              border: "1px solid var(--color-border)",
+              border: "1px solid var(--color-violet, #7c3aed)",
+              boxShadow: "0 4px 14px rgba(124, 58, 237, 0.35)", // Subtle violet glow
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-violet)";
-              e.currentTarget.style.color = "var(--color-violet)";
+              e.currentTarget.style.backgroundColor = "var(--color-violet-hover, #6d28d9)";
+              e.currentTarget.style.borderColor = "var(--color-violet-hover, #6d28d9)";
               e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(124, 58, 237, 0.5)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-border)";
-              e.currentTarget.style.color = "var(--color-text-primary)";
+              e.currentTarget.style.backgroundColor = "var(--color-violet, #7c3aed)";
+              e.currentTarget.style.borderColor = "var(--color-violet, #7c3aed)";
               e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 4px 14px rgba(124, 58, 237, 0.35)";
             }}
           >
             Download Resume
