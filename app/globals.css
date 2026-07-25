@@ -145,3 +145,9 @@ body::after {
 [data-theme="light"] header {
   background-color: rgba(240, 244, 255, 0.85) !important;
 }
+
+[data-theme="light"] #hero h1,
+[data-theme="light"] #hero h2,
+[data-theme="light"] #hero p {
+  color: var(--color-text-primary);
+}
