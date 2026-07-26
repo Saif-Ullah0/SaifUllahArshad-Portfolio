@@ -1,12 +1,20 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 export default function PhotoHover() {
   const [hovered, setHovered] = useState(false);
   const [glitchActive, setGlitchActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const glitchRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -99,8 +107,8 @@ export default function PhotoHover() {
         inset: "-45px",
         zIndex: 0,
         pointerEvents: "none",
-        opacity: hovered ? 1 : 0,
-        visibility: hovered ? "visible" : "hidden",
+        opacity: isMobile ? 0.4 : hovered ? 1 : 0,
+        visibility: isMobile ? "visible" : hovered ? "visible" : "hidden",
         transition: "opacity 0.6s ease, visibility 0.6s ease",
       }}>
 
