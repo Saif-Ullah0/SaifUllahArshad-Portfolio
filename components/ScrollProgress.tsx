@@ -56,6 +56,7 @@ export default function ScrollProgress() {
         alignItems: "center",
         gap: "0.5rem",
       }}
+      className="hidden md:flex"
     >
       {sections.map((section) => {
         const isActive = activeSection === section.id;
