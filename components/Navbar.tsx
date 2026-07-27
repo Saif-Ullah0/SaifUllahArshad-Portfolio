@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAppStore } from "@/store/useAppStore";
+import { IconType } from "react-icons";
 
 import {
   FaUser,
@@ -12,7 +13,13 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
-const navLinks = [
+interface NavLink {
+  label: string;
+  href: string;
+  icon: IconType;
+}
+
+const navLinks: NavLink[] = [
   { label: "About", href: "#about", icon: FaUser },
   { label: "Experience", href: "#experience", icon: FaBriefcase },
   { label: "Projects", href: "#projects", icon: FaCode },
@@ -29,12 +36,15 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) setMenuOpen(false);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) setMenuOpen(false);
     };
+
     handleResize();
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
@@ -42,7 +52,8 @@ export default function Navbar() {
   }, [setMenuOpen]);
 
   useEffect(() => {
-    const sections = ["about", "experience", "projects", "skills", "contact"];
+    // Fixed: Added "certificates" to the observe list
+    const sections = ["about", "experience", "projects", "skills", "certificates", "contact"];
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -131,7 +142,7 @@ export default function Navbar() {
     transition: "all 0.3s ease",
   };
 
-  const mobilMenuStyle: React.CSSProperties = {
+  const mobileMenuStyle: React.CSSProperties = {
     backgroundColor: "rgba(10, 10, 15, 0.97)",
     backdropFilter: "blur(12px)",
     borderTop: "1px solid var(--color-border)",
@@ -150,7 +161,6 @@ export default function Navbar() {
   return (
     <header style={headerStyle}>
       <nav style={navStyle}>
-
         <a href="#hero" style={logoStyle}>
           Saif<span style={dotStyle}>.</span>
         </a>
@@ -159,7 +169,6 @@ export default function Navbar() {
           <ul style={desktopLinksStyle}>
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
-              const Icon = link.icon;
               const linkStyle: React.CSSProperties = {
                 fontFamily: "var(--font-body)",
                 fontSize: "0.9rem",
@@ -173,6 +182,7 @@ export default function Navbar() {
                 alignItems: "center",
                 gap: "0.4rem",
               };
+
               return (
                 <li key={link.href}>
                   <a
@@ -188,7 +198,7 @@ export default function Navbar() {
                         : "var(--color-text-secondary)";
                     }}
                   >
-                    <Icon size={13} />
+                    <link.icon size={13} />
                     {link.label}
                   </a>
                 </li>
@@ -257,7 +267,7 @@ export default function Navbar() {
       </nav>
 
       {isMobile && menuOpen && (
-        <div style={mobilMenuStyle}>
+        <div style={mobileMenuStyle}>
           <ul style={mobileListStyle}>
             {navLinks.map((link) => (
               <li key={link.href}>
