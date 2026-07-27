@@ -7,6 +7,7 @@ import Skills from "@/features/skills/Skills";
 import Contact from "@/features/contact/Contact";
 import Footer from "@/components/Footer";
 import SectionWrapper from "@/components/SectionWrapper";
+import Certificates from "@/features/certificates/Certificates";  
 
 export default function Home() {
   return (
@@ -24,6 +25,9 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper delay={0}>
         <Skills />
+      </SectionWrapper>
+      <SectionWrapper delay={0}>
+        <Certificates />
       </SectionWrapper>
       <SectionWrapper delay={0}>
         <Contact />

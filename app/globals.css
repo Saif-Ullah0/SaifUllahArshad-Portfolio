@@ -175,3 +175,9 @@ body::after {
 [data-theme="light"] #hero .hero-mono {
   color: var(--color-cyan-dark) !important;
 }
+
+html {
+  /* Prevents horizontal layout jumps when scrollbar appears */
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
