@@ -85,34 +85,53 @@ export default function HeroText() {
         {profile.name}
       </h1>
 
-      {/* Typing animation */}
-      <h2
+      {/* Typing animation - Fixed Height Container */}
+      <div
         style={{
-          fontFamily: "var(--font-heading)",
-          fontSize: "clamp(1.2rem, 3vw, 2rem)",
-          fontWeight: 500,
-          letterSpacing: "-0.01em",
-          marginBottom: "1.5rem",
-          height: "3rem",
-          minHeight: "3rem",
+          minHeight: "4.5rem", // Gives ample height even on smaller viewports if text wraps
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: "0.5rem",
+          marginBottom: "1.5rem",
         }}
       >
-        <span style={{ color: "var(--color-violet-light)" }}>{displayed}</span>
-        <span
+        <h2
           style={{
-            display: "inline-block",
-            width: "3px",
-            height: "1.2em",
-            backgroundColor: "var(--color-cyan)",
-            borderRadius: "2px",
-            animation: "cursorBlink 1s ease-in-out infinite",
+            fontFamily: "var(--font-heading)",
+            fontSize: "clamp(1.2rem, 3vw, 2rem)",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.4rem",
+            margin: 0,
+            lineHeight: 1.2,
           }}
-        />
-      </h2>
+        >
+          {/* Use non-breaking space when empty to preserve line height */}
+          <span
+            style={{
+              color: "var(--color-violet-light)",
+              minWidth: "1ch",
+              whiteSpace: "pre",
+            }}
+          >
+            {displayed || "\u00A0"}
+          </span>
+          <span
+            style={{
+              display: "inline-block",
+              width: "3px",
+              height: "1.1em",
+              backgroundColor: "var(--color-cyan)",
+              borderRadius: "2px",
+              animation: "cursorBlink 1s ease-in-out infinite",
+              flexShrink: 0,
+            }}
+          />
+        </h2>
+      </div>
 
       <style>{`
         @keyframes cursorBlink {
@@ -160,7 +179,8 @@ export default function HeroText() {
               border: "1px solid var(--color-violet)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--color-violet-light)";
+              e.currentTarget.style.backgroundColor =
+                "var(--color-violet-light)";
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
@@ -183,24 +203,30 @@ export default function HeroText() {
               fontWeight: 600,
               padding: "0.75rem 2rem",
               borderRadius: "8px",
-              backgroundColor: "var(--color-violet, #7c3aed)", // Solid filled background
-              color: "#ffffff", // Crisp white text for clear visibility
+              backgroundColor: "var(--color-violet, #7c3aed)",
+              color: "#ffffff",
               textDecoration: "none",
               transition: "all 0.2s ease",
               border: "1px solid var(--color-violet, #7c3aed)",
-              boxShadow: "0 4px 14px rgba(124, 58, 237, 0.35)", // Subtle violet glow
+              boxShadow: "0 4px 14px rgba(124, 58, 237, 0.35)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--color-violet-hover, #6d28d9)";
-              e.currentTarget.style.borderColor = "var(--color-violet-hover, #6d28d9)";
+              e.currentTarget.style.backgroundColor =
+                "var(--color-violet-hover, #6d28d9)";
+              e.currentTarget.style.borderColor =
+                "var(--color-violet-hover, #6d28d9)";
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 6px 20px rgba(124, 58, 237, 0.5)";
+              e.currentTarget.style.boxShadow =
+                "0 6px 20px rgba(124, 58, 237, 0.5)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--color-violet, #7c3aed)";
-              e.currentTarget.style.borderColor = "var(--color-violet, #7c3aed)";
+              e.currentTarget.style.backgroundColor =
+                "var(--color-violet, #7c3aed)";
+              e.currentTarget.style.borderColor =
+                "var(--color-violet, #7c3aed)";
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 14px rgba(124, 58, 237, 0.35)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 14px rgba(124, 58, 237, 0.35)";
             }}
           >
             Download Resume
@@ -218,39 +244,51 @@ export default function HeroText() {
         }}
       >
         {[
-          { label: "GitHub", url: "https://github.com/Saif-Ullah0", color: "var(--color-violet)" },
-          { label: "LinkedIn", url: "https://linkedin.com/in/saif-ullah-arshad-40797a265", color: "var(--color-cyan)" },
-          { label: "Email", url: "mailto:saifullaharshad110@gmail.com", color: "var(--color-violet-light)" },
+          {
+            label: "GitHub",
+            url: "https://github.com/Saif-Ullah0",
+            color: "var(--color-violet)",
+          },
+          {
+            label: "LinkedIn",
+            url: "https://linkedin.com/in/saif-ullah-arshad-40797a265",
+            color: "var(--color-cyan)",
+          },
+          {
+            label: "Email",
+            url: "mailto:saifullaharshad110@gmail.com",
+            color: "var(--color-violet-light)",
+          },
         ].map((social) => (
           <a
-          key={social.label}
-          href={social.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.78rem",
-            color: social.color,
-            textDecoration: "none",
-            padding: "0.4rem 0.9rem",
-            borderRadius: "20px",
-            border: `1px solid ${social.color}`,
-            transition: "all 0.2s ease",
-            letterSpacing: "0.05em",
-            backgroundColor: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = social.color;
-            e.currentTarget.style.color = "white";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.color = social.color;
-          }}
-        >
-          {social.label}
-        </a>
-      ))}
+            key={social.label}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.78rem",
+              color: social.color,
+              textDecoration: "none",
+              padding: "0.4rem 0.9rem",
+              borderRadius: "20px",
+              border: `1px solid ${social.color}`,
+              transition: "all 0.2s ease",
+              letterSpacing: "0.05em",
+              backgroundColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = social.color;
+              e.currentTarget.style.color = "white";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.color = social.color;
+            }}
+          >
+            {social.label}
+          </a>
+        ))}
       </div>
 
       {/* Scroll indicator */}

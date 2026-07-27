@@ -40,7 +40,7 @@ export default function Contact() {
             marginBottom: "0.75rem",
           }}
         >
-          {"// 05. contact"}
+          {"// 06. contact"}
         </p>
 
         {/* Section heading */}
