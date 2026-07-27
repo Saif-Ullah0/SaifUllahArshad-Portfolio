@@ -17,14 +17,15 @@ export default function Certificates() {
   };
 
   const certImages: Record<string, string> = {
-    "nvidia-genai": "/images/certs/nvidia.png",
-    "google-kaggle-agents": "/images/certs/google-kaggle.png",
-    "deeplearning-ai": "/images/certs/deeplearning.png",
-    "kaggle-ml": "/images/certs/kaggle-ml.png",
-    "kaggle-pandas": "/images/certs/kaggle-pandas.png",
-    "cisco-python": "/images/certs/cisco.png",
-  };
-
+  "nvidia-genai": "/images/certs/NvidiaGenAI.png",
+  "anthropic-fluency": "/images/certs/AnthropicAIFluency.png",
+  "anthropic-claude": "/images/certs/AnthropicClaude101.png",
+  "google-kaggle-agents": "/images/certs/google-kaggle.png",
+  "deeplearning-ai": "/images/certs/deeplearning.png",
+  "kaggle-ml": "/images/certs/kaggle-ml.png",
+  "kaggle-pandas": "/images/certs/kaggle-pandas.png",
+  "cisco-python": "/images/certs/cisco.png",
+};
   return (
     <section
       id="certificates"
@@ -103,6 +104,7 @@ export default function Certificates() {
                       src={imgSrc}
                       alt={cert.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       style={{ objectFit: "cover", objectPosition: "top" }}
                     />
                     <div style={{
@@ -219,6 +221,7 @@ export default function Certificates() {
                   src={certImages[certificates[selected].id]}
                   alt={certificates[selected].title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   style={{ objectFit: "contain" }}
                 />
               </div>

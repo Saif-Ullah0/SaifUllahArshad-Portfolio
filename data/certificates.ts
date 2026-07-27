@@ -7,14 +7,22 @@ export const certificates: Certificate[] = [
     issuer: "NVIDIA",
     date: "2025",
     credentialUrl: null,
-    logo: "/icons/nvidia.png",
+    logo: "/images/certs/NvidiaGenAI.png", // Changed 'Al' to 'AI'
   },
   {
-    id: "google-kaggle-agents",
-    title: "5-Day AI Agents Intensive",
-    issuer: "Google x Kaggle",
-    date: "2025",
+    id: "anthropic-fluency",
+    title: "AI Fluency",
+    issuer: "Anthropic",
+    date: "2026",
     credentialUrl: null,
-    logo: "/icons/google.png",
+    logo: "/images/certs/AnthropicAIFluency.png", // Changed 'Al' to 'AI'
+  },
+  {
+    id: "anthropic-claude",
+    title: "Claude 101",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl: null,
+    logo: "/images/certs/AnthropicClaude101.png",
   },
 ];
