@@ -11,7 +11,10 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
@@ -20,10 +23,15 @@ export default function Hero() {
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        /* Anchor to top instead of dynamic flex-center */
+        justifyContent: "flex-start",
         position: "relative",
         padding: "0 1.5rem",
+        /* Reserve fixed space for Navbar header so text is perfectly vertically balanced */
+        paddingTop: "clamp(7rem, 15vh, 11rem)",
+        paddingBottom: "4rem",
         overflow: "hidden",
         backgroundColor: "var(--color-background)",
       }}
@@ -35,18 +43,21 @@ export default function Hero() {
       {!isMobile && <HeroCanvas />}
 
       {/* Glow */}
-      <div style={{
-        position: "absolute",
-        top: "20%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "600px",
-        height: "600px",
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%)",
-        pointerEvents: "none",
-        zIndex: 3,
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 3,
+        }}
+      />
 
       <div style={{ position: "relative", zIndex: 10 }}>
         <HeroText />
