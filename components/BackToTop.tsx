@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 500);
+    const handleScroll = () => setVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -14,14 +15,19 @@ export default function BackToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      aria-label="Back to top"
       style={{
         position: "fixed",
-        bottom: "5rem",
-        right: "1rem",
+        bottom: "2rem",
+        right: "1.5rem",
         width: "44px",
         height: "44px",
         borderRadius: "50%",
-        backgroundColor: "var(--color-violet)",
+        backgroundColor: isHovered
+          ? "var(--color-violet-light, #8b5cf6)"
+          : "var(--color-violet, #7c3aed)",
         border: "none",
         cursor: "pointer",
         display: "flex",
@@ -29,20 +35,15 @@ export default function BackToTop() {
         justifyContent: "center",
         zIndex: 500,
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(20px)",
-        transition: "all 0.3s ease",
+        transform: visible
+          ? isHovered
+            ? "translateY(-3px)"
+            : "translateY(0)"
+          : "translateY(20px)",
+        transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
         pointerEvents: visible ? "all" : "none",
-        boxShadow: "0 0 20px rgba(124, 58, 237, 0.4)",
+        boxShadow: "0 4px 20px rgba(124, 58, 237, 0.4)",
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = "var(--color-violet-light)";
-        e.currentTarget.style.transform = "translateY(-2px)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = "var(--color-violet)";
-        e.currentTarget.style.transform = "translateY(0)";
-      }}
-      aria-label="Back to top"
     >
       <svg
         width="18"
