@@ -25,14 +25,12 @@ export default function Hero() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        /* Anchor to top instead of dynamic flex-center */
         justifyContent: "flex-start",
         position: "relative",
         padding: "0 1.5rem",
-        /* Reserve fixed space for Navbar header so text is perfectly vertically balanced */
         paddingTop: "clamp(7rem, 15vh, 11rem)",
         paddingBottom: "4rem",
-        overflow: "hidden",
+        overflow: "clip", // FIXED: "clip" preserves page sticky behavior while clipping canvas overflow
         backgroundColor: "var(--color-background)",
       }}
     >
