@@ -20,9 +20,10 @@ export default function Home() {
       <SectionWrapper delay={0}>
         <Experience />
       </SectionWrapper>
-      <SectionWrapper delay={0}>
-        <Projects />
-      </SectionWrapper>
+      
+      {/* 🟢 REMOVED SectionWrapper from Projects so position: sticky works perfectly! */}
+      <Projects />
+
       <SectionWrapper delay={0}>
         <Skills />
       </SectionWrapper>
