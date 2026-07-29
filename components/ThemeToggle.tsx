@@ -12,6 +12,12 @@ export default function ThemeToggle() {
     if (saved === "light") {
       setIsDark(false);
       document.documentElement.setAttribute("data-theme", "light");
+    } else if (!saved) {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setIsDark(prefersDark);
+      if (!prefersDark) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
     }
   }, []);
 
@@ -35,13 +41,13 @@ export default function ThemeToggle() {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       style={{
         position: "fixed",
-        bottom: "5rem",
-        left: "1rem",
-        width: "52px",
-        height: "28px",
-        borderRadius: "14px",
-        backgroundColor: isDark ? "var(--color-surface)" : "#e8edf8",
-        border: `1px solid ${isDark ? "var(--color-violet)" : "#c8d3eb"}`,
+        bottom: "2rem",
+        left: "1.5rem",
+        width: "54px",
+        height: "30px",
+        borderRadius: "15px",
+        backgroundColor: isDark ? "var(--color-surface, #121218)" : "#e8edf8",
+        border: `1px solid ${isDark ? "var(--color-violet, #7c3aed)" : "#c8d3eb"}`,
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
@@ -53,19 +59,18 @@ export default function ThemeToggle() {
           : "0 2px 8px rgba(0,0,0,0.1)",
       }}
     >
-      {/* Track */}
       <div
         style={{
-          width: "20px",
-          height: "20px",
+          width: "22px",
+          height: "22px",
           borderRadius: "50%",
-          backgroundColor: isDark ? "var(--color-violet)" : "#f59e0b",
+          backgroundColor: isDark ? "var(--color-violet, #7c3aed)" : "#f59e0b",
           transform: isDark ? "translateX(0)" : "translateX(24px)",
-          transition: "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "11px",
+          fontSize: "12px",
           flexShrink: 0,
         }}
       >
