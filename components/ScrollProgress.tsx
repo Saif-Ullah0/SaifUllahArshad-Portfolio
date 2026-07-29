@@ -15,11 +15,16 @@ const sections = [
 export default function ScrollProgress() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     const handleScroll = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress((window.scrollY / total) * 100);
+      if (total > 0) {
+        setScrollProgress((window.scrollY / total) * 100);
+      }
     };
 
     const observer = new IntersectionObserver(
@@ -43,6 +48,9 @@ export default function ScrollProgress() {
     };
   }, []);
 
+  // Prevent SSR/Client Hydration Mismatch
+  if (!mounted) return null;
+
   return (
     <div
       style={{
@@ -64,7 +72,9 @@ export default function ScrollProgress() {
           <button
             key={section.id}
             onClick={() => {
-              document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" });
+              document
+                .getElementById(section.id)
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             title={section.label}
             aria-label={`Go to ${section.label}`}

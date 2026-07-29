@@ -22,6 +22,11 @@ export default function SectionWrapper({ children, id, delay = 0 }: Props) {
             setTimeout(() => {
               el.style.opacity = "1";
               el.style.transform = "translateY(0)";
+
+              // 🟢 CRITICAL FIX: Clear transform after animation completes so sticky works on children
+              setTimeout(() => {
+                el.style.transform = "none";
+              }, 800); // 800ms matches the CSS transition duration
             }, delay);
             observer.unobserve(el);
           }
@@ -43,6 +48,7 @@ export default function SectionWrapper({ children, id, delay = 0 }: Props) {
         opacity: 0,
         transform: "translateY(50px)",
         transition: "opacity 0.8s ease, transform 0.8s ease",
+        willChange: "opacity, transform",
       }}
     >
       {children}
