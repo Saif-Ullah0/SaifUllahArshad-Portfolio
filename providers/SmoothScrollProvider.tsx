@@ -12,6 +12,12 @@ export default function SmoothScrollProvider({
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    // 🟢 Essential: Forces Framer Motion useScroll to trigger on Lenis scroll
+    lenis.on("scroll", () => {
+      window.dispatchEvent(new Event("scroll"));
     });
 
     function raf(time: number) {
