@@ -37,13 +37,11 @@ export default function LoadingScreen() {
   useEffect(() => {
     if (!mounted) return;
 
-    // Prevent background scrolling while loading screen is active
     document.body.style.overflow = "hidden";
 
     let animationFrameId: number;
     let timeoutId: NodeJS.Timeout;
 
-    // Realistic non-linear progress simulation
     const startTime = performance.now();
     const duration = 1800; // ~1.8 seconds target loading time
 
@@ -51,12 +49,10 @@ export default function LoadingScreen() {
       const elapsed = currentTime - startTime;
       const rawRatio = Math.min(1, elapsed / duration);
 
-      // Ease-out cubic curve for natural feel
       const easedProgress = Math.min(100, Math.round((1 - Math.pow(1 - rawRatio, 3)) * 100));
 
       setProgress(easedProgress);
 
-      // Update descriptive status message
       if (easedProgress < 30) setStageIndex(0);
       else if (easedProgress < 70) setStageIndex(1);
       else if (easedProgress < 98) setStageIndex(2);
@@ -65,13 +61,12 @@ export default function LoadingScreen() {
       if (rawRatio < 1) {
         animationFrameId = requestAnimationFrame(animateProgress);
       } else {
-        // Smooth transition out sequence
         timeoutId = setTimeout(() => {
           setIsLoaded(true);
           setTimeout(() => {
             setVisible(false);
             document.body.style.overflow = "";
-          }, 700);
+          }, 850);
         }, 200);
       }
     };
@@ -94,131 +89,183 @@ export default function LoadingScreen() {
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "var(--color-background, #09090b)",
         zIndex: 9999,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
         overflow: "hidden",
-        userSelect: "none",
-        transition: "opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
-        opacity: isLoaded ? 0 : 1,
-        transform: isLoaded ? "scale(1.02)" : "scale(1)",
         pointerEvents: isLoaded ? "none" : "all",
-        willChange: "opacity, transform",
+        userSelect: "none",
       }}
     >
-      {/* Dynamic Background Radial Glow */}
+      {/* --- LEFT CURTAIN PANEL --- */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: "50%",
+          backgroundColor: "var(--color-background, #09090b)",
+          transform: isLoaded ? "translateX(-100%)" : "translateX(0)",
+          transition: "transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)",
+          willChange: "transform",
+        }}
+      />
+
+      {/* --- RIGHT CURTAIN PANEL --- */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: "50%",
+          backgroundColor: "var(--color-background, #09090b)",
+          transform: isLoaded ? "translateX(100%)" : "translateX(0)",
+          transition: "transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)",
+          willChange: "transform",
+        }}
+      />
+
+      {/* --- CENTER GLOW LINE (FADES IN ONLY DURING OPENING REVEAL) --- */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: "50%",
+          width: "2px",
+          transform: "translateX(-50%)",
+          background: "linear-gradient(180deg, transparent, #7c3aed, #06b6d4, transparent)",
+          opacity: isLoaded ? 1 : 0,
+          transition: "opacity 0.25s ease",
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+      />
+
+      {/* --- INTERACTIVE CURSOR LIGHTING --- */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(124, 58, 237, 0.12), transparent 80%)`,
+          background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(124, 58, 237, 0.18), transparent 80%)`,
           transition: "background 0.15s ease-out",
           pointerEvents: "none",
+          opacity: isLoaded ? 0 : 1,
         }}
       />
 
-      {/* Main Center Content */}
+      {/* --- CENTER CONTENT (LOGO & PROGRESS) --- */}
       <div
         style={{
+          position: "absolute",
+          inset: 0,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "2rem",
-          position: "relative",
-          zIndex: 1,
-          maxWidth: "320px",
-          width: "100%",
+          justifyContent: "center",
+          zIndex: 20,
+          opacity: isLoaded ? 0 : 1,
+          transform: isLoaded ? "scale(0.9) translateY(-20px)" : "scale(1) translateY(0)",
+          transition: "opacity 0.35s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+          pointerEvents: isLoaded ? "none" : "all",
         }}
       >
-        {/* Brand Mark */}
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            gap: "0.25rem",
-            fontFamily: "var(--font-heading, sans-serif)",
-            fontSize: "2.75rem",
-            fontWeight: 800,
-            color: "var(--color-text-primary, #ffffff)",
-            letterSpacing: "-0.04em",
+            gap: "2rem",
+            maxWidth: "320px",
+            width: "100%",
+            padding: "0 1rem",
           }}
         >
-          <span>Saif</span>
-          <span
-            style={{
-              color: "var(--color-violet, #7c3aed)",
-              textShadow: "0 0 16px rgba(124, 58, 237, 0.6)",
-            }}
-          >
-            .
-          </span>
-        </div>
-
-        {/* Progress System */}
-        <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-          {/* Progress Bar Container */}
-          <div
-            role="progressbar"
-            aria-valuenow={progress}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label="Loading page assets"
-            style={{
-              width: "100%",
-              height: "2px",
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
-              borderRadius: "999px",
-              overflow: "hidden",
-              position: "relative",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            {/* Active Animated Fill */}
-            <div
-              style={{
-                height: "100%",
-                width: `${progress}%`,
-                background: "linear-gradient(90deg, #7c3aed 0%, #06b6d4 100%)",
-                borderRadius: "999px",
-                transition: "width 0.1s cubic-bezier(0.16, 1, 0.3, 1)",
-                boxShadow: "0 0 12px rgba(124, 58, 237, 0.8)",
-              }}
-            />
-          </div>
-
-          {/* Micro Status Meta Info */}
+          {/* Brand Mark */}
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
               alignItems: "center",
-              fontFamily: "var(--font-mono, monospace)",
-              fontSize: "0.7rem",
-              color: "var(--color-text-muted, #71717a)",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
+              gap: "0.25rem",
+              fontFamily: "var(--font-heading, sans-serif)",
+              fontSize: "2.75rem",
+              fontWeight: 800,
+              color: "var(--color-text-primary, #ffffff)",
+              letterSpacing: "-0.04em",
             }}
           >
-            <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <span
+            <span>Saif</span>
+            <span
+              style={{
+                color: "var(--color-violet, #7c3aed)",
+                textShadow: "0 0 16px rgba(124, 58, 237, 0.8)",
+              }}
+            >
+              .
+            </span>
+          </div>
+
+          {/* Progress System */}
+          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <div
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Loading page assets"
+              style={{
+                width: "100%",
+                height: "2px",
+                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                borderRadius: "999px",
+                overflow: "hidden",
+                position: "relative",
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              <div
                 style={{
-                  width: "5px",
-                  height: "5px",
-                  borderRadius: "50%",
-                  backgroundColor: progress === 100 ? "#10b981" : "#7c3aed",
-                  boxShadow: progress === 100 ? "0 0 8px #10b981" : "0 0 8px #7c3aed",
-                  transition: "background-color 0.3s ease",
+                  height: "100%",
+                  width: `${progress}%`,
+                  background: "linear-gradient(90deg, #7c3aed 0%, #06b6d4 100%)",
+                  borderRadius: "999px",
+                  transition: "width 0.1s cubic-bezier(0.16, 1, 0.3, 1)",
+                  boxShadow: "0 0 14px rgba(124, 58, 237, 0.9)",
                 }}
               />
-              {STAGE_LABELS[stageIndex]}
-            </span>
+            </div>
 
-            <span style={{ fontWeight: 600, color: "var(--color-text-secondary, #a1a1aa)" }}>
-              {String(progress).padStart(3, "0")}%
-            </span>
+            {/* Micro Metadata */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontFamily: "var(--font-mono, monospace)",
+                fontSize: "0.7rem",
+                color: "var(--color-text-muted, #71717a)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <span
+                  style={{
+                    width: "5px",
+                    height: "5px",
+                    borderRadius: "50%",
+                    backgroundColor: progress === 100 ? "#10b981" : "#7c3aed",
+                    boxShadow: progress === 100 ? "0 0 8px #10b981" : "0 0 8px #7c3aed",
+                    transition: "background-color 0.3s ease",
+                  }}
+                />
+                {STAGE_LABELS[stageIndex]}
+              </span>
+
+              <span style={{ fontWeight: 600, color: "var(--color-text-secondary, #a1a1aa)" }}>
+                {String(progress).padStart(3, "0")}%
+              </span>
+            </div>
           </div>
         </div>
       </div>
