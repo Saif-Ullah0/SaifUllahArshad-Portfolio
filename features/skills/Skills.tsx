@@ -12,21 +12,21 @@ const SkillsCanvas = dynamic(() => import("./SkillsCanvas"), {
     <div
       style={{
         width: "100%",
-        height: "500px",
+        height: "380px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(15, 23, 42, 0.3)",
+        background: "var(--color-surface-2)",
         borderRadius: "16px",
-        border: "1px dashed rgba(255, 255, 255, 0.1)",
+        border: "1px dashed var(--color-border)",
       }}
     >
       <p
         style={{
           fontFamily: "var(--font-mono, monospace)",
           fontSize: "0.85rem",
-          color: "var(--color-cyan, #06b6d4)",
+          color: "var(--color-cyan)",
           letterSpacing: "0.1em",
         }}
       >
@@ -51,7 +51,6 @@ export default function Skills() {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      if (mobile) setViewMode("grid");
     };
 
     handleResize();
@@ -77,13 +76,13 @@ export default function Skills() {
     >
       <style>{`
         .skill-card {
-          background: rgba(15, 23, 42, 0.65);
+          background: var(--color-surface);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--color-border);
           border-radius: 12px;
           padding: 0.85rem 1.25rem;
           display: flex;
-          alignItems: center;
+          align-items: center;
           justify-content: space-between;
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           position: relative;
@@ -97,22 +96,53 @@ export default function Skills() {
         .view-btn {
           font-family: var(--font-mono, monospace);
           font-size: 0.8rem;
-          padding: 0.5rem 1rem;
+          padding: 0.5rem 0.85rem;
           border-radius: 6px;
           background: transparent;
           border: none;
-          color: var(--color-text-muted, #94a3b8);
+          color: var(--color-text-muted);
           cursor: pointer;
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
           transition: all 0.2s ease;
         }
 
         .view-btn.active {
-          background: var(--color-violet, #7c3aed);
+          background: var(--color-violet);
           color: #ffffff;
-          box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+          box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .skills-input-wrapper {
+          background-color: var(--color-surface);
+          border: 1px solid var(--color-border);
+        }
+
+        .skills-input {
+          color: var(--color-text-primary);
+        }
+
+        .skills-input::placeholder {
+          color: var(--color-text-muted);
+        }
+
+        .skills-mode-bg {
+          background-color: var(--color-surface-2);
+          border: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 768px) {
+          .controls-container {
+            width: 100%;
+            justify-content: space-between;
+          }
+          .skills-input-wrapper {
+            flex: 1;
+          }
+          .skills-input {
+            width: 100% !important;
+          }
         }
       `}</style>
 
@@ -133,7 +163,7 @@ export default function Skills() {
               style={{
                 fontFamily: "var(--font-mono, monospace)",
                 fontSize: "0.85rem",
-                color: "var(--color-cyan, #06b6d4)",
+                color: "var(--color-cyan)",
                 letterSpacing: "0.1em",
                 marginBottom: "0.5rem",
               }}
@@ -146,7 +176,7 @@ export default function Skills() {
                 fontFamily: "var(--font-heading, sans-serif)",
                 fontSize: "clamp(2rem, 4vw, 2.75rem)",
                 fontWeight: 700,
-                color: "var(--color-text-primary, #f8fafc)",
+                color: "var(--color-text-primary)",
                 letterSpacing: "-0.02em",
               }}
             >
@@ -155,30 +185,29 @@ export default function Skills() {
           </div>
 
           {/* Controls Bar */}
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+          <div className="controls-container" style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             {/* Search Input */}
             <div
+              className="skills-input-wrapper"
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "0.5rem",
-                backgroundColor: "rgba(15, 23, 42, 0.8)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
                 borderRadius: "8px",
                 padding: "0.4rem 0.8rem",
               }}
             >
-              <FaSearch size={12} color="#06b6d4" />
+              <FaSearch size={12} style={{ color: "var(--color-cyan)" }} />
               <input
                 type="text"
                 placeholder="Search tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                className="skills-input"
                 style={{
                   background: "transparent",
                   border: "none",
                   outline: "none",
-                  color: "#f8fafc",
                   fontFamily: "var(--font-mono, monospace)",
                   fontSize: "0.8rem",
                   width: "120px",
@@ -186,37 +215,44 @@ export default function Skills() {
               />
             </div>
 
-            {/* View Mode Toggle Buttons */}
-            {!isMobile && (
-              <div
-                style={{
-                  display: "flex",
-                  backgroundColor: "rgba(15, 23, 42, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: "8px",
-                  padding: "3px",
-                }}
+            {/* View Mode Toggle Buttons (Enabled for both Mobile and Desktop) */}
+            <div
+              className="skills-mode-bg"
+              style={{
+                display: "flex",
+                borderRadius: "8px",
+                padding: "3px",
+              }}
+            >
+              <button
+                onClick={() => setViewMode("3d")}
+                className={`view-btn ${viewMode === "3d" ? "active" : ""}`}
               >
-                <button
-                  onClick={() => setViewMode("3d")}
-                  className={`view-btn ${viewMode === "3d" ? "active" : ""}`}
-                >
-                  <FaCube size={12} /> 3D Orbit
-                </button>
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`view-btn ${viewMode === "grid" ? "active" : ""}`}
-                >
-                  <FaThLarge size={12} /> Cyber Grid
-                </button>
-              </div>
-            )}
+                <FaCube size={12} /> 3D Orbit
+              </button>
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`view-btn ${viewMode === "grid" ? "active" : ""}`}
+              >
+                <FaThLarge size={12} /> Cyber Grid
+              </button>
+            </div>
           </div>
         </div>
 
         {/* 3D Canvas View Mode */}
-        {!isMobile && viewMode === "3d" && searchQuery === "" && (
-          <div style={{ marginBottom: "3rem", borderRadius: "16px", overflow: "hidden" }}>
+        {viewMode === "3d" && searchQuery === "" && (
+          <div
+            style={{
+              marginBottom: "3rem",
+              borderRadius: "16px",
+              overflow: "hidden",
+              height: isMobile ? "380px" : "500px",
+              position: "relative",
+              border: "1px solid var(--color-border)",
+              background: "var(--color-surface)",
+            }}
+          >
             <SkillsCanvas />
           </div>
         )}
@@ -270,7 +306,7 @@ export default function Skills() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
                     gap: "1rem",
                   }}
                 >
@@ -283,7 +319,7 @@ export default function Skills() {
                         e.currentTarget.style.boxShadow = `0 4px 20px ${cat.color}25, 0 0 10px ${cat.color}15`;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                        e.currentTarget.style.borderColor = "var(--color-border)";
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
@@ -304,7 +340,7 @@ export default function Skills() {
                           fontFamily: "var(--font-body, sans-serif)",
                           fontSize: "0.9rem",
                           fontWeight: 500,
-                          color: "#f8fafc",
+                          color: "var(--color-text-primary)",
                           flex: 1,
                         }}
                       >
@@ -316,7 +352,7 @@ export default function Skills() {
                         style={{
                           fontFamily: "var(--font-mono, monospace)",
                           fontSize: "0.65rem",
-                          color: "rgba(255, 255, 255, 0.25)",
+                          color: "var(--color-text-muted)",
                         }}
                       >
                         SYS
