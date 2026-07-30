@@ -20,12 +20,10 @@ export default function LoadingScreen() {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Prevent SSR/Hydration Mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Track cursor position for subtle dynamic lighting
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -43,12 +41,11 @@ export default function LoadingScreen() {
     let timeoutId: NodeJS.Timeout;
 
     const startTime = performance.now();
-    const duration = 1800; // ~1.8 seconds target loading time
+    const duration = 1800; // ~1.8s loading time
 
     const animateProgress = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const rawRatio = Math.min(1, elapsed / duration);
-
       const easedProgress = Math.min(100, Math.round((1 - Math.pow(1 - rawRatio, 3)) * 100));
 
       setProgress(easedProgress);
@@ -63,11 +60,12 @@ export default function LoadingScreen() {
       } else {
         timeoutId = setTimeout(() => {
           setIsLoaded(true);
+          // Wait for curtain slide to complete
           setTimeout(() => {
             setVisible(false);
             document.body.style.overflow = "";
-          }, 850);
-        }, 200);
+          }, 900);
+        }, 250);
       }
     };
 
@@ -104,11 +102,26 @@ export default function LoadingScreen() {
           bottom: 0,
           width: "50%",
           backgroundColor: "var(--color-background, #09090b)",
-          transform: isLoaded ? "translateX(-100%)" : "translateX(0)",
-          transition: "transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)",
+          transform: isLoaded ? "translate3d(-102%, 0, 0)" : "translate3d(0, 0, 0)",
+          transition: "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)",
           willChange: "transform",
         }}
-      />
+      >
+        {/* Glow edge attached to the inner right edge of the left curtain */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            width: "2px",
+            background: "linear-gradient(180deg, transparent, #7c3aed 30%, #06b6d4 70%, transparent)",
+            boxShadow: "0 0 15px #7c3aed, 0 0 30px #06b6d4",
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+          }}
+        />
+      </div>
 
       {/* --- RIGHT CURTAIN PANEL --- */}
       <div
@@ -119,42 +132,40 @@ export default function LoadingScreen() {
           bottom: 0,
           width: "50%",
           backgroundColor: "var(--color-background, #09090b)",
-          transform: isLoaded ? "translateX(100%)" : "translateX(0)",
-          transition: "transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)",
+          transform: isLoaded ? "translate3d(102%, 0, 0)" : "translate3d(0, 0, 0)",
+          transition: "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)",
           willChange: "transform",
         }}
-      />
+      >
+        {/* Glow edge attached to the inner left edge of the right curtain */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            width: "2px",
+            background: "linear-gradient(180deg, transparent, #7c3aed 30%, #06b6d4 70%, transparent)",
+            boxShadow: "0 0 15px #7c3aed, 0 0 30px #06b6d4",
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+          }}
+        />
+      </div>
 
-      {/* --- CENTER GLOW LINE (FADES IN ONLY DURING OPENING REVEAL) --- */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: "50%",
-          width: "2px",
-          transform: "translateX(-50%)",
-          background: "linear-gradient(180deg, transparent, #7c3aed, #06b6d4, transparent)",
-          opacity: isLoaded ? 1 : 0,
-          transition: "opacity 0.25s ease",
-          pointerEvents: "none",
-          zIndex: 10,
-        }}
-      />
-
-      {/* --- INTERACTIVE CURSOR LIGHTING --- */}
+      {/* --- INTERACTIVE LIGHTING --- */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(124, 58, 237, 0.18), transparent 80%)`,
-          transition: "background 0.15s ease-out",
+          background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(124, 58, 237, 0.15), transparent 80%)`,
           pointerEvents: "none",
           opacity: isLoaded ? 0 : 1,
+          transition: "opacity 0.3s ease",
         }}
       />
 
-      {/* --- CENTER CONTENT (LOGO & PROGRESS) --- */}
+      {/* --- CENTER UI CONTENT --- */}
       <div
         style={{
           position: "absolute",
@@ -165,8 +176,8 @@ export default function LoadingScreen() {
           justifyContent: "center",
           zIndex: 20,
           opacity: isLoaded ? 0 : 1,
-          transform: isLoaded ? "scale(0.9) translateY(-20px)" : "scale(1) translateY(0)",
-          transition: "opacity 0.35s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+          transform: isLoaded ? "scale(0.92)" : "scale(1)",
+          transition: "opacity 0.25s ease-out, transform 0.3s ease-out",
           pointerEvents: isLoaded ? "none" : "all",
         }}
       >
@@ -205,7 +216,7 @@ export default function LoadingScreen() {
             </span>
           </div>
 
-          {/* Progress System */}
+          {/* Progress Bar & Status */}
           <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <div
               role="progressbar"
@@ -220,7 +231,6 @@ export default function LoadingScreen() {
                 borderRadius: "999px",
                 overflow: "hidden",
                 position: "relative",
-                backdropFilter: "blur(4px)",
               }}
             >
               <div
