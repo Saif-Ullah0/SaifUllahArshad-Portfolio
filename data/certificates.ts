@@ -7,7 +7,7 @@ export const certificates: Certificate[] = [
     issuer: "NVIDIA",
     date: "2025",
     credentialUrl: null,
-    logo: "/images/certs/NvidiaGenAI.png", // Changed 'Al' to 'AI'
+    logo: "/images/certs/NvidiaGenAI.png",
   },
   {
     id: "anthropic-fluency",
@@ -15,7 +15,7 @@ export const certificates: Certificate[] = [
     issuer: "Anthropic",
     date: "2026",
     credentialUrl: null,
-    logo: "/images/certs/AnthropicAIFluency.png", // Changed 'Al' to 'AI'
+    logo: "/images/certs/AnthropicAIFluency.png",
   },
   {
     id: "anthropic-claude",
@@ -23,6 +23,30 @@ export const certificates: Certificate[] = [
     issuer: "Anthropic",
     date: "2026",
     credentialUrl: null,
-    logo: "/images/certs/AnthropicClaude101.png",
+    logo: "/images/certs/Claude101.jpg",
+  },
+  {
+    id: "anthropic-platform",
+    title: "Claude Platform 101",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl: null,
+    logo: "/images/certs/ClaudePlateform101.jpg",
+  },
+  {
+    id: "anthropic-code",
+    title: "Claude Code 101",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl: null,
+    logo: "/images/certs/ClaudeCode101.jpg",
+  },
+  {
+    id: "anthropic-cowork",
+    title: "Claude Cowork",
+    issuer: "Anthropic",
+    date: "2026",
+    credentialUrl: null,
+    logo: "/images/certs/IntrotoClaudeCowork.jpg",
   },
 ];
